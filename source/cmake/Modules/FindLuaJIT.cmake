@@ -1,8 +1,8 @@
 # Locate Lua library
 # This module defines
-#  LUAJIT_FOUND, if false, do not try to link to Lua 
+#  LUAJIT_FOUND, if false, do not try to link to Lua
 #  LUAJIT_LIBRARIES
-#  LUAJIT_INCLUDE_DIR, where to find lua.h 
+#  LUAJIT_INCLUDE_DIR, where to find lua.h
 #
 # Note that the expected include convention is
 #  #include "lua.h"
@@ -28,11 +28,24 @@
 # 2010 - modified for cronkite to find luajit instead of lua, as it was before.
 #
 
+SET(LUAJIT_SEARCH_PATHS
+	${LUAJIT_SEARCH_PATHS}
+	$ENV{LUAJIT_DIR}
+	${WINDOWS_DEPENDENCIES_ROOT}
+	~/Library/Frameworks
+	/Library/Frameworks
+	/usr/local
+	/usr
+	/opt/local
+	/opt
+)
+
 FIND_PATH(LUAJIT_INCLUDE_DIR lua.h
   HINTS
   $ENV{LUAJIT_DIR}
   PATH_SUFFIXES include/luajit-2.0 include/luajit2.0 include/luajit include
   PATHS
+  ${LUAJIT_SEARCH_PATHS}
   ~/Library/Frameworks
   /Library/Frameworks
   /usr/local
@@ -43,12 +56,13 @@ FIND_PATH(LUAJIT_INCLUDE_DIR lua.h
   /opt
 )
 
-FIND_LIBRARY(LUAJIT_LIBRARY 
+FIND_LIBRARY(LUAJIT_LIBRARY
   NAMES luajit-51 luajit-5.1 luajit
   HINTS
   $ENV{LUAJIT_DIR}
   PATH_SUFFIXES lib64 lib
   PATHS
+  ${LUAJIT_SEARCH_PATHS}
   ~/Library/Frameworks
   /Library/Frameworks
   /usr/local
@@ -71,9 +85,8 @@ IF(LUAJIT_LIBRARY)
 ENDIF(LUAJIT_LIBRARY)
 
 INCLUDE(FindPackageHandleStandardArgs)
-# handle the QUIETLY and REQUIRED arguments and set LUAJIT_FOUND to TRUE if 
+# handle the QUIETLY and REQUIRED arguments and set LUAJIT_FOUND to TRUE if
 # all listed variables are TRUE
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(LuaJIT  DEFAULT_MSG  LUAJIT_LIBRARIES LUAJIT_INCLUDE_DIR)
 
 MARK_AS_ADVANCED(LUAJIT_INCLUDE_DIR LUAJIT_LIBRARIES LUAJIT_LIBRARY LUAJIT_MATH_LIBRARY)
-
