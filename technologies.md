@@ -12,8 +12,19 @@
 * Blargscript
 * Honkscript
 * That Thing Which Just Works<sup>_(TM) (R) (POTATO)_</sup>
+* LUA
 
 #### LUA
+
+##### Flavors
+
+[LuaJIT](http://luajit.org/) -- LUA with a JIT compiler.
+ * Official version(?).
+ * Console support
+ * NOTE that the JIT compiler is disabled on consoles. Boo.
+ * NOTE that the FFI is also disabled on consoles???
+ * LUA 5.1
+ * ['Simple' example integration with C](http://lua-users.org/wiki/SimpleLuaApiExample)
 
 ##### C API
 
